@@ -8,8 +8,8 @@ class Node {
 }
 
 class Map {
-    constructor(ctx) {
-        this.length = 20 // Length of square/node/tile
+    constructor(ctx, length) {
+        this.length = length // Length of square/node/tile
         this.space = 5 // Space between nodes
         this.nodes = Array() // All nodes
         this.stroke_color = "black"

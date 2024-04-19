@@ -6,6 +6,7 @@
             body {
                 margin: 0;
                 padding: 0;
+                font-size: large;
             }
 
             canvas {
@@ -14,9 +15,60 @@
                 border: 2px solid grey;
                 border-radius: 1%;
             }
+            #wrapper {
+                display: flex;
+                width: 100%;
+                justify-content:center;
+                padding: 5px 0;
+            }
+            #control {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                padding: 10px;
+                border: 1px solid black;
+                border-radius: 5px;
+                text-align: left;
+            }
+            #control > .item {
+                border: 1px solid black;
+                padding: 5px;
+                margin: 5px 0;
+            }
+            #control > button.item {
+                border: none;
+                color: white;
+                background-color: orange;
+                font-weight: bold;
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
+        <div id="wrapper">
+        <div id="control">
+            <div>
+                <label for="action-start">Select START node</label>
+                <input id="action-start" type="radio" name="action" value="start">
+            </div>
+            <div>
+                <label for="action-goal">Select GOAL node</label>
+                <input id="action-goal" type="radio" name="action" value="goal">
+            </div>
+            <div>
+                <label for="action-block">Select BRICK/BLOCK node</label>
+                <input id="action-block" type="radio" name="action" value="block">
+            </div>
+            <div>
+                <label for="action-unblock">Unselect BRICK/BLOCK node</label>
+                <input id="action-unblock" type="radio" name="action" value="unblock">
+            </div>
+            <div style="margin-top: 10px;">
+                <label for="length">Enter length of one tile/node:</label>
+                <input id="length" class="item" type="number" value=20></div>
+            <button class="item">UPDATE</button>
+        </div>
+        </div>
         <canvas id="canvas"></canvas>
         <script src="map.js"></script>
         <script src="controller.js"></script>

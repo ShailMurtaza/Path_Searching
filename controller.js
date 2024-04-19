@@ -1,8 +1,9 @@
-const canvas = document.getElementById('canvas');
+const canvas = document.getElementById("canvas");
+const length_input = document.getElementById("length")
 canvas.height = window.innerHeight - 15;
-canvas.width = window.innerWidth - 15;
+canvas.width = window.innerWidth - 17;
 const ctx = canvas.getContext('2d');
-var map = new Map(ctx)
+var map = new Map(ctx, length_input.value)
 
 function animate() {
     map.draw_nodes()
