@@ -30,7 +30,7 @@ function select_node(x, y) {
 }
 
 function get_action() {
-    return "BLOCK"
+    return document.querySelector("input[name=action]:checked").value
 }
 
 function handle_mouse_move(event) {
@@ -48,7 +48,8 @@ function handle_mouse_down(event) {
     if (action == "BLOCK") {
         canvas.addEventListener('mousemove', handle_mouse_move);
     }
-    else if (action == "UNBLOCK") {
+    // Fill is used for default color. Which means unblock
+    else if (action == "FILL") {
         canvas.addEventListener('mousemove', handle_mouse_move);
     }
 
@@ -61,3 +62,4 @@ canvas.addEventListener('mouseout', ()=>{canvas.removeEventListener('mousemove',
 var map = new Map(ctx, length_input.value, space=5, rows=3, cols=4, line_width=1, stroke_color=COLORS["STROKE"], default_fill=COLORS["FILL"])
 map.create_nodes()
 animate()
+

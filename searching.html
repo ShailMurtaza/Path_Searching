@@ -6,7 +6,7 @@
             body {
                 margin: 0;
                 padding: 0;
-                font-size: large;
+                font-size: larger;
             }
 
             canvas {
@@ -20,27 +20,40 @@
                 width: 100%;
                 justify-content:center;
                 padding: 5px 0;
+                margin: 10px 0;
             }
             #control {
                 display: flex;
                 flex-direction: column;
-                width: 50%;
+                width: 70%;
                 padding: 10px;
-                border: 1px solid black;
                 border-radius: 5px;
                 text-align: left;
+                box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
             }
             #control > .item {
                 border: 1px solid black;
                 padding: 5px;
                 margin: 5px 0;
             }
-            #control > button.item {
-                border: none;
+            #update {
+                border: none !important;
                 color: white;
-                background-color: orange;
+                background-color: #b84f2f;
                 font-weight: bold;
                 cursor: pointer;
+                transition-duration: 300ms;
+            }
+            #update:hover {
+                background-color: #6F0000;
+            }
+            input[type="radio"]:checked+label {
+                border: 2px solid rgb(160, 104, 0);
+            }
+            #length {
+                width: 100%;
+                padding: 5px;
+                box-sizing: border-box;
             }
         </style>
     </head>
@@ -48,25 +61,26 @@
         <div id="wrapper">
         <div id="control">
             <div>
-                <label for="action-start">Select START node</label>
                 <input id="action-start" type="radio" name="action" value="START">
+                <label for="action-start">Select START node</label>
             </div>
             <div>
-                <label for="action-goal">Select GOAL node</label>
                 <input id="action-goal" type="radio" name="action" value="GOAL">
+                <label for="action-goal">Select GOAL node</label>
             </div>
             <div>
+                <input id="action-block" type="radio" name="action" value="BLOCK" checked>
                 <label for="action-block">Select BRICK/BLOCK node</label>
-                <input id="action-block" type="radio" name="action" value="BLOCK">
             </div>
             <div>
+                <input id="action-unblock" type="radio" name="action" value="FILL">
                 <label for="action-unblock">Unselect BRICK/BLOCK node</label>
-                <input id="action-unblock" type="radio" name="action" value="UNBLOCK">
             </div>
             <div style="margin-top: 10px;">
                 <label for="length">Enter length of one tile/node:</label>
-                <input id="length" class="item" type="number" value=20></div>
-            <button class="item">UPDATE</button>
+                <input id="length" class="item" type="number" value=20>
+            </div>
+            <button class="item" id="update">UPDATE</button>
         </div>
         </div>
         <canvas id="canvas"></canvas>
