@@ -3,7 +3,18 @@ const length_input = document.getElementById("length")
 canvas.height = window.innerHeight - 15;
 canvas.width = window.innerWidth - 17;
 const ctx = canvas.getContext('2d');
-var map = new Map(ctx, length_input.value)
+
+const COLORS = {
+    "FILL": "white",
+    "STROKE": "black",
+    "BLOCK": "black",
+    "START": "#D90021",
+    "GOAL": "#316400",
+
+    "PATH": "#EF2929",
+    "VISITED": "#E9B96E",
+    "SELECTED": "#008E8E",
+}
 
 function animate() {
     map.draw_nodes()
@@ -15,24 +26,38 @@ function select_node(x, y) {
     x = x - rect.left
     y = y - rect.top
     let node = map.get_node(x, y)
-    if (node.node != null) {
-        node.node.color = "red"
+    return node
+}
+
+function get_action() {
+    return "BLOCK"
+}
+
+function handle_mouse_move(event) {
+    let node = select_node(event.clientX, event.clientY)
+    let action = get_action()
+    if (node != null) {
+        node.color = COLORS[action]
     }
 }
 
-
-function handle_mouse_move(event) {
-    select_node(event.clientX, event.clientY)
-}
-
 function handle_mouse_down(event) {
-    select_node(event.clientX, event.clientY)
-    canvas.addEventListener('mousemove', handle_mouse_move);
+    let node = select_node(event.clientX, event.clientY)
+    let action = get_action()
+    if (node != null) node.color = COLORS[action]
+    if (action == "BLOCK") {
+        canvas.addEventListener('mousemove', handle_mouse_move);
+    }
+    else if (action == "UNBLOCK") {
+        canvas.addEventListener('mousemove', handle_mouse_move);
+    }
+
 }
 
 canvas.addEventListener('mousedown', handle_mouse_down);
 canvas.addEventListener('mouseup', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
 canvas.addEventListener('mouseout', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
 
+var map = new Map(ctx, length_input.value, space=5, rows=3, cols=4, line_width=1, stroke_color=COLORS["STROKE"], default_fill=COLORS["FILL"])
 map.create_nodes()
 animate()
