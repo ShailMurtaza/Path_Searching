@@ -36,7 +36,7 @@
                 padding: 5px;
                 margin: 5px 0;
             }
-            #update {
+            #control > button {
                 border: none !important;
                 color: white;
                 background-color: #b84f2f;
@@ -44,7 +44,7 @@
                 cursor: pointer;
                 transition-duration: 300ms;
             }
-            #update:hover {
+            #control > button:hover {
                 background-color: #6F0000;
             }
             input[type="radio"]:checked+label {
@@ -80,11 +80,13 @@
                 <label for="length">Enter length of one tile/node:</label>
                 <input id="length" class="item" type="number" value=20>
             </div>
-            <button class="item" id="update">UPDATE</button>
+            <button class="item" id="update" onclick="update_map()">UPDATE/RESET</button>
+            <button class="item" id="start" onclick="start()">START</button>
         </div>
         </div>
         <canvas id="canvas"></canvas>
         <script src="map.js"></script>
         <script src="controller.js"></script>
+        <script src="searching.js"></script>
     </body>
 </html>
