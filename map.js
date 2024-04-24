@@ -9,6 +9,8 @@ class Node {
 
 class Map {
     constructor(ctx, length, space, rows, cols, line_width, stroke_color, default_fill) {
+        this.start = null
+        this.goal = null
         this.length = parseInt(length) // Length of square/node/tile
         this.space = space // Space between nodes
         this.nodes = null // Array of all nodes

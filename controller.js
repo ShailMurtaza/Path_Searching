@@ -4,6 +4,7 @@ canvas.height = window.innerHeight - 15;
 canvas.width = window.innerWidth - 17;
 const ctx = canvas.getContext('2d');
 
+
 const COLORS = {
     "FILL": "white",
     "STROKE": "black",
@@ -44,7 +45,21 @@ function handle_mouse_move(event) {
 function handle_mouse_down(event) {
     let node = select_node(event.clientX, event.clientY)
     let action = get_action()
-    if (node != null) node.color = COLORS[action]
+    if (node != null) {
+        node.color = COLORS[action]
+        if (action == "START") {
+            if (map.start != null) {
+                map.start.color = COLORS["FILL"]
+            }
+            map.start = node
+        }
+        else if (action == "GOAL") {
+            if (map.goal != null) {
+                map.goal.color = COLORS["FILL"]
+            }
+            map.goal = node
+        }
+    }
     if (action == "BLOCK") {
         canvas.addEventListener('mousemove', handle_mouse_move);
     }
@@ -52,7 +67,6 @@ function handle_mouse_down(event) {
     else if (action == "FILL") {
         canvas.addEventListener('mousemove', handle_mouse_move);
     }
-
 }
 
 canvas.addEventListener('mousedown', handle_mouse_down);
