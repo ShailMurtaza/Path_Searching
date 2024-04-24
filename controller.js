@@ -22,6 +22,7 @@ function animate() {
     requestAnimationFrame(animate)
 }
 
+// return under the cursor
 function select_node(x, y) {
     const rect = canvas.getBoundingClientRect();
     x = x - rect.left
@@ -36,27 +37,32 @@ function get_action() {
 
 function handle_mouse_move(event) {
     let node = select_node(event.clientX, event.clientY)
-    let action = get_action()
+    // If node exist then change its color to current selected action
     if (node != null) {
+        let action = get_action()
         node.color = COLORS[action]
     }
 }
 
 function handle_mouse_down(event) {
-    let node = select_node(event.clientX, event.clientY)
-    let action = get_action()
+    let node = select_node(event.clientX, event.clientY) // Get node under cursor
+    let action = get_action() // Get current action
     if (node != null) {
-        node.color = COLORS[action]
+        node.color = COLORS[action] // Change color of node under cursor
         if (action == "START") {
+             // If start node already exist then change its color to default node color
             if (map.start != null) {
                 map.start.color = COLORS["FILL"]
             }
+            // Set map start node
             map.start = node
         }
+         // If goal node already exist then change its color to default node color
         else if (action == "GOAL") {
             if (map.goal != null) {
                 map.goal.color = COLORS["FILL"]
             }
+            // Set map goal node
             map.goal = node
         }
     }
