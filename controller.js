@@ -7,14 +7,14 @@ const ctx = canvas.getContext('2d');
 
 const COLORS = {
     "FILL": "white",
-    "STROKE": "black",
+    "STROKE": "#888A85",
     "BLOCK": "black",
     "START": "#D90021",
     "GOAL": "#0700D0",
 
     "PATH": "#F7DD5C",
     "VISITED": "#888A85",
-    "SELECTED": "#2fb000",
+    "SELECTED": "#2FB000",
 }
 
 function animate() {
