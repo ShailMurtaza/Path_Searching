@@ -1,6 +1,8 @@
 class Node {
-    constructor(x, y, color, value) {
+    constructor(x, y, i, j, color, value) {
         this.value = value
+        this.i = i
+        this.j = j
         this.x = x
         this.y = y
         this.color = color
@@ -22,16 +24,8 @@ class Map {
         this.ctx.strokeStyle = this.stroke_color
         this.ctx.lineWidth = this.line_width
 
-        if (rows == 0 || cols == 0) {
-            // Number of nodes fit in canvas width
-            this.cols = Math.floor(canvas.width / (this.length+this.space))
-            // Number of nodes fit in canvas height
-            this.rows = Math.floor(canvas.height / (this.length+this.space))
-        }
-        else {
-            this.rows = rows
-            this.cols = cols
-        }
+        this.calculate_nodes(rows, cols)
+
     }
 
     create_nodes() {
@@ -44,10 +38,23 @@ class Map {
                 let x = this.space + (this.space + this.length) * j
                 // Starting point of node on y-axis
                 let y =  this.space + (this.space + this.length) * i
-                let node = new Node(x, y, this.default_fill, f++)
+                let node = new Node(x, y, i, j, this.default_fill, f++)
                 node_row.push(node)
             }
             this.nodes.push(node_row)
+        }
+    }
+
+    calculate_nodes(rows, cols) {
+        if (rows == 0 || cols == 0) {
+            // Number of nodes fit in canvas width
+            this.cols = Math.floor(canvas.width / (this.length+this.space))
+            // Number of nodes fit in canvas height
+            this.rows = Math.floor(canvas.height / (this.length+this.space))
+        }
+        else {
+            this.rows = rows
+            this.cols = cols
         }
     }
 

@@ -10,11 +10,11 @@ const COLORS = {
     "STROKE": "black",
     "BLOCK": "black",
     "START": "#D90021",
-    "GOAL": "#316400",
+    "GOAL": "#0700D0",
 
-    "PATH": "#EF2929",
-    "VISITED": "#E9B96E",
-    "SELECTED": "#008E8E",
+    "PATH": "#F7DD5C",
+    "VISITED": "#888A85",
+    "SELECTED": "#2fb000",
 }
 
 function animate() {
@@ -75,7 +75,6 @@ function handle_mouse_down(event) {
     }
 }
 
-function start() {}
 
 canvas.addEventListener('mousedown', handle_mouse_down);
 canvas.addEventListener('mouseup', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
@@ -83,9 +82,10 @@ canvas.addEventListener('mouseout', ()=>{canvas.removeEventListener('mousemove',
 
 function update_map() {
     map.length = parseInt(length_input.value)
+    map.calculate_nodes(0, 0)
     map.create_nodes()
 }
-var map = new Map(ctx, length_input.value, space=5, rows=3, cols=4, line_width=1, stroke_color=COLORS["STROKE"], default_fill=COLORS["FILL"])
+var map = new Map(ctx, length_input.value, space=5, rows=0, cols=0, line_width=1, stroke_color=COLORS["STROKE"], default_fill=COLORS["FILL"])
 map.create_nodes()
 animate()
 
