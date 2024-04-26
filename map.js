@@ -1,10 +1,10 @@
 class Node {
     constructor(x, y, i, j, color, value) {
         this.value = value
-        this.i = i
-        this.j = j
-        this.x = x
-        this.y = y
+        this.i = i // Index i
+        this.j = j // Index j
+        this.x = x // positoin on x-axis
+        this.y = y // positoin on y-axis
         this.color = color
     }
 }

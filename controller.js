@@ -14,7 +14,7 @@ const COLORS = {
 
     "PATH": "#F7DD5C",
     "VISITED": "#888A85",
-    "SELECTED": "#2FB000",
+    "SELECTED": "#F57900",
 }
 
 function animate() {
@@ -42,6 +42,7 @@ function handle_mouse_move(event) {
         let action = get_action()
         node.color = COLORS[action]
     }
+    map.draw_nodes()
 }
 
 function handle_mouse_down(event) {
@@ -73,6 +74,7 @@ function handle_mouse_down(event) {
     else if (action == "FILL") {
         canvas.addEventListener('mousemove', handle_mouse_move);
     }
+    map.draw_nodes()
 }
 
 
@@ -84,8 +86,10 @@ function update_map() {
     map.length = parseInt(length_input.value)
     map.calculate_nodes(0, 0)
     map.create_nodes()
+    map.draw_nodes()
 }
-var map = new Map(ctx, length_input.value, space=5, rows=0, cols=0, line_width=1, stroke_color=COLORS["STROKE"], default_fill=COLORS["FILL"])
+var map = new Map(ctx, length_input.value, space=2, rows=0, cols=0, line_width=1, stroke_color=COLORS["STROKE"], default_fill=COLORS["FILL"])
 map.create_nodes()
-animate()
+map.draw_nodes()
+// animate()
 
