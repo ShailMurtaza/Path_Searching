@@ -1,6 +1,7 @@
 function start() {
     if (map.start && map.goal) {
-        DFS(map)
+        // DFS(map)
+        BFS(map)
     }
     else {
         console.log("Empty start or goal")
@@ -36,7 +37,7 @@ function DFS(map) {
     var stack = [map.start]
     var parent = {}
     parent[map.start.value] = null // Set parent of start node as null
-    var interval = setInterval(search, 100)
+    var interval = setInterval(search, 70)
 
     function search() {
         // If stack is empty then clear interval
@@ -67,6 +68,50 @@ function DFS(map) {
                 if (n_node.color == COLORS["FILL"]) {
                     parent[n_node.value] = node.value
                     stack.push(n_node)
+                    n_node.color = COLORS["SELECTED"]
+                }
+            }
+        }
+        map.draw_nodes()
+    }
+}
+
+// Breadth First Search
+function BFS(map) {
+    var queue = [map.start]
+    var parent = {}
+    parent[map.start.value] = null // Set parent of start node as null
+    var interval = setInterval(search, 5)
+
+    function search() {
+        // If queue is empty then clear interval
+        if (queue.length == 0) {
+            clearInterval(interval)
+            display_path(map, parent, queue)
+            return
+        }
+        else {
+            let node = queue.shift() // Pop 1st element from queue
+            // Do not change color if node is start node
+            if (node.color != COLORS["START"])
+                node.color = COLORS["VISITED"]
+
+            // Get neighbors of node
+            let neighbors = map.get_neighbors(node.i, node.j)
+            for (let i=0;i<neighbors.length;i++) {
+                let n_node = neighbors[i]
+                // If neighbor is goal then clearInterval and break loop
+                if (n_node.color == COLORS["GOAL"]) {
+                    parent[n_node.value] = node.value
+                    clearInterval(interval)
+                    display_path(map, parent, queue)
+                    return
+                }
+
+                // If neighbor is unvisited node then add it to queue and change color so it wouldn't be selected again
+                if (n_node.color == COLORS["FILL"]) {
+                    parent[n_node.value] = node.value
+                    queue.push(n_node)
                     n_node.color = COLORS["SELECTED"]
                 }
             }
