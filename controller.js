@@ -2,6 +2,7 @@ const canvas = document.getElementById("canvas");
 const length_input = document.getElementById("length")
 const speed = document.getElementById("speed")
 const speed_output = document.getElementById("speed_output")
+const algo_select = document.getElementById("algo_select")
 canvas.height = window.innerHeight - 15;
 canvas.width = window.innerWidth - 17;
 const ctx = canvas.getContext('2d');
@@ -28,7 +29,8 @@ function get_speed() {
     let min = 5
     let max = 995
     return (max + min) - (speed.value * (max - min) / 100 + min)
-    // Formula above is mine. And below one is Chat GPT's
+    // Formula above is mine. And below one is Chat GPT's.
+    // Linear transformation thing
     // return -9.9 * speed.value + max
 }
 

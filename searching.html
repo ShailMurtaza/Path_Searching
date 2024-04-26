@@ -29,7 +29,7 @@
                 padding: 10px;
                 border-radius: 5px;
                 text-align: left;
-                box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+                box-shadow: 0px 5px 20px 1px #000000b0;
             }
             #control > .item {
                 border: 1px solid black;
@@ -56,19 +56,28 @@
                 box-sizing: border-box;
             }
 
-            .flex-two {
+            .flex {
                 display: flex;
                 flex-direction: row;
                 margin-top: 7px;
                 align-items: center;
+            }
+            select {
+                width: 100%;
+                padding: 5px;
+                margin-bottom: 7px;
             }
         </style>
     </head>
     <body>
         <div id="wrapper">
         <div id="control">
+            <select id="algo_select">
+                <option value=0>Depth First Search</option>
+                <option value=1>Breadth First Search</option>
+            </select>
             <div>
-                <input id="action-start" type="radio" name="action" value="START">
+                <input id="action-start" type="radio" name="action" value="START" checked>
                 <label for="action-start">Select START node</label>
             </div>
             <div>
@@ -76,18 +85,18 @@
                 <label for="action-goal">Select GOAL node</label>
             </div>
             <div>
-                <input id="action-block" type="radio" name="action" value="BLOCK" checked>
+                <input id="action-block" type="radio" name="action" value="BLOCK">
                 <label for="action-block">Select BRICK/BLOCK node</label>
             </div>
             <div>
                 <input id="action-unblock" type="radio" name="action" value="FILL">
                 <label for="action-unblock">Unselect BRICK/BLOCK node</label>
             </div>
-            <div class="flex-two">
+            <div class="flex">
                 <label for="length" style="width: 100%;">Enter length of one tile/node:</label>
                 <input id="length" class="item" type="number" value=100>
             </div>
-            <div class="flex-two">
+            <div class="flex">
                 <label for="speed" style="width: 100%;">Speed <output id="speed_output"></output></label>
                 <input id="speed" type="range" value="90" min="1" max="100" oninput="set_speed()">
             </div>

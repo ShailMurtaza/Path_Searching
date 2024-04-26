@@ -1,7 +1,11 @@
+const algo = {
+    0: DFS,
+    1: BFS,
+}
+
 function start() {
     if (map.start && map.goal) {
-        // DFS(map)
-        BFS(map)
+        algo[algo_select.value](map)
     }
     else {
         console.log("Empty start or goal")
