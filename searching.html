@@ -6,7 +6,7 @@
             body {
                 margin: 0;
                 padding: 0;
-                font-size: larger;
+                font-size: small;
             }
 
             canvas {
@@ -55,6 +55,13 @@
                 padding: 5px;
                 box-sizing: border-box;
             }
+
+            .flex-two {
+                display: flex;
+                flex-direction: row;
+                margin-top: 7px;
+                align-items: center;
+            }
         </style>
     </head>
     <body>
@@ -76,9 +83,13 @@
                 <input id="action-unblock" type="radio" name="action" value="FILL">
                 <label for="action-unblock">Unselect BRICK/BLOCK node</label>
             </div>
-            <div style="margin-top: 10px;">
-                <label for="length">Enter length of one tile/node:</label>
+            <div class="flex-two">
+                <label for="length" style="width: 100%;">Enter length of one tile/node:</label>
                 <input id="length" class="item" type="number" value=100>
+            </div>
+            <div class="flex-two">
+                <label for="speed" style="width: 100%;">Speed <output id="speed_output"></output></label>
+                <input id="speed" type="range" value="90" min="1" max="100" oninput="set_speed()">
             </div>
             <button class="item" id="update" onclick="update_map()">UPDATE/RESET</button>
             <button class="item" id="start" onclick="start()">START</button>

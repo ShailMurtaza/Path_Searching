@@ -1,5 +1,7 @@
 const canvas = document.getElementById("canvas");
 const length_input = document.getElementById("length")
+const speed = document.getElementById("speed")
+const speed_output = document.getElementById("speed_output")
 canvas.height = window.innerHeight - 15;
 canvas.width = window.innerWidth - 17;
 const ctx = canvas.getContext('2d');
@@ -15,6 +17,19 @@ const COLORS = {
     "PATH": "#F7DD5C",
     "VISITED": "#888A85",
     "SELECTED": "#F57900",
+}
+
+function set_speed() {
+    speed_output.value = speed.value + "%"
+}
+
+// Function to return speed in ms. mapping 0% to 5ms and 100% to 995ms
+function get_speed() {
+    let min = 5
+    let max = 995
+    return (max + min) - (speed.value * (max - min) / 100 + min)
+    // Formula above is mine. And below one is Chat GPT's
+    // return -9.9 * speed.value + max
 }
 
 function animate() {
@@ -78,18 +93,23 @@ function handle_mouse_down(event) {
 }
 
 
-canvas.addEventListener('mousedown', handle_mouse_down);
-canvas.addEventListener('mouseup', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
-canvas.addEventListener('mouseout', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
-
 function update_map() {
     map.length = parseInt(length_input.value)
     map.calculate_nodes(0, 0)
     map.create_nodes()
     map.draw_nodes()
 }
+
+
+canvas.addEventListener('mousedown', handle_mouse_down);
+canvas.addEventListener('mouseup', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
+canvas.addEventListener('mouseout', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
+
+
 var map = new Map(ctx, length_input.value, space=2, rows=0, cols=0, line_width=1, stroke_color=COLORS["STROKE"], default_fill=COLORS["FILL"])
 map.create_nodes()
 map.draw_nodes()
+set_speed()
 // animate()
+
 

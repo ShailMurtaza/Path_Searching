@@ -37,7 +37,7 @@ function DFS(map) {
     var stack = [map.start]
     var parent = {}
     parent[map.start.value] = null // Set parent of start node as null
-    var interval = setInterval(search, 70)
+    var interval = setInterval(search, get_speed())
 
     function search() {
         // If stack is empty then clear interval
@@ -81,7 +81,7 @@ function BFS(map) {
     var queue = [map.start]
     var parent = {}
     parent[map.start.value] = null // Set parent of start node as null
-    var interval = setInterval(search, 5)
+    var interval = setInterval(search, get_speed())
 
     function search() {
         // If queue is empty then clear interval
