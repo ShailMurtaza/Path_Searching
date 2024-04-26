@@ -47,7 +47,6 @@ function DFS(map) {
         // If stack is empty then clear interval
         if (stack.length == 0) {
             clearInterval(interval)
-            display_path(map, parent, stack)
             return
         }
         else {

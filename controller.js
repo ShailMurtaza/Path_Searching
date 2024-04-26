@@ -57,6 +57,9 @@ function handle_mouse_move(event) {
     // If node exist then change its color to current selected action
     if (node != null) {
         let action = get_action()
+        if (node.color == COLORS["GOAL"]) {
+            map.goal = null
+        }
         node.color = COLORS[action]
     }
     map.draw_nodes()
@@ -82,8 +85,18 @@ function handle_mouse_down(event) {
             // Set map goal node
             map.goal = node
         }
+        // If node is not going to be selected as start or goal and node is already goal node then remove it from map.goal
+        else if (node.color == COLORS["GOAL"]) {
+            map.goal = null
+        }
+        // If node is not going to be selected as start or goal and node is already start node then remove it from map.start
+        else if (node.color == COLORS["START"]) {
+            map.start = null
+        }
         node.color = COLORS[action] // Change color of node under cursor
     }
+
+
     if (action == "BLOCK") {
         canvas.addEventListener('mousemove', handle_mouse_move);
     }
@@ -97,6 +110,8 @@ function handle_mouse_down(event) {
 
 function update_map() {
     map.length = parseInt(length_input.value)
+    map.start = null
+    map.goal = null
     map.calculate_nodes(0, 0)
     map.create_nodes()
     map.draw_nodes()
