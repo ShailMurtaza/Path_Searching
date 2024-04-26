@@ -64,8 +64,8 @@ class Map {
             for (let j=0;j<this.cols;j++) {
                 let node = this.nodes[i][j]
                 ctx.fillStyle = node.color
-                ctx.fillRect(node.x+1, node.y+1, this.length-1, this.length-1)
-                if (this.stroke_color != null)
+                ctx.fillRect(node.x, node.y, this.length, this.length)
+                if (this.stroke_color != null && this.line_width != 0)
                     ctx.strokeRect(node.x+0.50, node.y+0.50, this.length, this.length)
             }
         }
