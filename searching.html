@@ -17,36 +17,32 @@
             }
             #wrapper {
                 display: flex;
-                width: 100%;
                 justify-content:center;
+                max-width: 100%;
                 padding: 5px 0;
                 margin: 10px 0;
             }
             #control {
-                display: flex;
-                flex-direction: column;
-                width: 70%;
+                width: 65%;
                 padding: 10px;
                 border-radius: 5px;
                 text-align: left;
                 box-shadow: 0px 5px 20px 1px #000000b0;
             }
-            #control > .item {
+            #control .item {
                 border: 1px solid black;
                 padding: 5px;
                 margin: 5px 0;
             }
-            #control > button {
-                border: none !important;
+            #control button {
+                width: 100%;
+                /* border: none !important; */
                 color: white;
-                background-color: #b84f2f;
                 font-weight: bold;
                 cursor: pointer;
                 transition-duration: 300ms;
             }
-            #control > button:hover {
-                background-color: #6F0000;
-            }
+
             input[type="radio"]:checked+label {
                 border: 2px solid rgb(160, 104, 0);
             }
@@ -66,6 +62,32 @@
                 width: 100%;
                 padding: 5px;
                 margin-bottom: 7px;
+            }
+            #update {
+                background-color: #C0213B;
+            }
+            #update:hover {
+                background-color: #9E1B31;
+            }
+            #clear {
+                background-color: #00AAC0;
+            }
+            #clear:hover {
+                background-color: #006E7C;
+            }
+            #start {
+                background-color: #A300EB;
+            }
+            #start:hover {
+                background-color: #57007C;
+            }
+            @media screen and (max-width: 650px) {
+                #wrapper {
+                    padding: 10px 20px;
+                }
+                #control {
+                    width: 100%;
+                }
             }
         </style>
     </head>
@@ -100,7 +122,10 @@
                 <label for="speed" style="width: 100%;">Speed <output id="speed_output"></output></label>
                 <input id="speed" type="range" value="90" min="1" max="100" oninput="set_speed()">
             </div>
-            <button class="item" id="update" onclick="update_map()">UPDATE/RESET</button>
+            <div class="flex">
+                <button class="item" id="update" onclick="update_map()">UPDATE/RESET</button>
+                <button class="item" id="clear" onclick="clear_map()">CLEAR</button>
+            </div>
             <button class="item" id="start" onclick="start()">START</button>
         </div>
         </div>

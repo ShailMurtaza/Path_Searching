@@ -19,6 +19,19 @@ const COLORS = {
     "VISITED": "#888A85",
     "SELECTED": "#F57900",
 }
+/*
+const COLORS = {
+    "FILL": "white",
+    "STROKE": "#888A85",
+    "BLOCK": "black",
+    "START": "#E63B36",
+    "GOAL": "#2B30E3",
+
+    "PATH": "#4A8E62",
+    "VISITED": "#E3C02B",
+    "SELECTED": "#6B664E",
+}
+*/
 
 function set_speed() {
     speed_output.value = speed.value + "%"
@@ -104,6 +117,18 @@ function handle_mouse_down(event) {
     else if (action == "FILL") {
         canvas.addEventListener('mousemove', handle_mouse_move);
     }
+    map.draw_nodes()
+}
+
+
+// Clear only path and visited
+function clear_map() {
+    map.nodes.forEach((row)=> {
+        row.forEach((node)=> {
+            if (node.color == COLORS["VISITED"] || node.color == COLORS["PATH"])
+                node.color = COLORS["FILL"]
+        })
+    })
     map.draw_nodes()
 }
 
