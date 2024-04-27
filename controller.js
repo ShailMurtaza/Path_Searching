@@ -137,11 +137,22 @@ function update_map() {
     map.length = parseInt(length_input.value)
     map.start = null
     map.goal = null
-    map.calculate_nodes(0, 0)
+    map.calculate_nodes(0, 0) // 0 rows and 0 columns. Function will calculate number of rows and columns based on dimensions of canvas
     map.create_nodes()
     map.draw_nodes()
 }
 
+function invert_map() {
+    map.nodes.forEach((row)=> {
+        row.forEach((node)=> {
+            if (node.color == COLORS["FILL"])
+                node.color = COLORS["BLOCK"]
+            else if (node.color == COLORS["BLOCK"])
+                node.color = COLORS["FILL"]
+        })
+    })
+    map.draw_nodes()
+}
 
 canvas.addEventListener('mousedown', handle_mouse_down);
 canvas.addEventListener('mouseup', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
