@@ -125,7 +125,7 @@ function handle_mouse_down(event) {
 function clear_map() {
     map.nodes.forEach((row)=> {
         row.forEach((node)=> {
-            if (node.color == COLORS["VISITED"] || node.color == COLORS["PATH"])
+            if (node.color == COLORS["VISITED"] || node.color == COLORS["PATH"] || node.color == COLORS["SELECTED"])
                 node.color = COLORS["FILL"]
         })
     })
@@ -159,7 +159,7 @@ canvas.addEventListener('mouseup', ()=>{canvas.removeEventListener('mousemove', 
 canvas.addEventListener('mouseout', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
 
 
-var map = new Map(ctx, length_input.value, space=2, rows=0, cols=0, line_width=1, stroke_color=COLORS["STROKE"], default_fill=COLORS["FILL"])
+var map = new Map(ctx, length_input.value, space=0, rows=0, cols=0, line_width=1, stroke_color=COLORS["STROKE"], default_fill=COLORS["FILL"])
 map.create_nodes()
 map.draw_nodes()
 set_speed()

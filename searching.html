@@ -1,6 +1,10 @@
 <!DOCTYPE HTML>
 <html>
+
     <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Searching</title>
         <style>
             body {
@@ -55,7 +59,7 @@
             .flex {
                 display: flex;
                 flex-direction: row;
-                margin-top: 7px;
+                margin-top: 3px;
                 align-items: center;
             }
             select {
@@ -81,10 +85,10 @@
             #invert:hover {
                 background-color: #000000;
             }
-            #start {
+            #start, #stop {
                 background-color: #A300EB;
             }
-            #start:hover {
+            #start:hover ,#stop:hover {
                 background-color: #57007C;
             }
             @media screen and (max-width: 650px) {
@@ -122,18 +126,21 @@
             </div>
             <div class="flex">
                 <label for="length" style="width: 100%;">Enter length of one tile/node:</label>
-                <input id="length" class="item" type="number" value=100>
+                <input id="length" class="item" type="number" value=30>
             </div>
             <div class="flex">
                 <label for="speed" style="width: 100%;">Speed <output id="speed_output"></output></label>
-                <input id="speed" type="range" value="90" min="1" max="100" oninput="set_speed()">
+                <input id="speed" type="range" value="90" min="70" max="100" oninput="set_speed()">
             </div>
             <div class="flex">
                 <button class="item" id="update" onclick="update_map()">UPDATE/RESET</button>
                 <button class="item" id="clear" onclick="clear_map()">CLEAR</button>
                 <button class="item" id="invert" onclick="invert_map()">INVERT</button>
             </div>
-            <button class="item" id="start" onclick="start()">START</button>
+            <div class="flex">
+                <button class="item" id="start" onclick="search.start()">START</button>
+                <button class="item" id="stop" onclick="search.stop()">STOP</button>
+            </div>
         </div>
         </div>
         <canvas id="canvas"></canvas>
