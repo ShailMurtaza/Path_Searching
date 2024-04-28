@@ -1,0 +1,26 @@
+#msg_container {
+    position: fixed;
+    padding: 0px;
+    margin: 5px 0 0 10px;
+    color: white;
+    font-size: medium;
+}
+
+.msg {
+    position: relative;
+    left: -130%;
+    margin-top: 20px;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgba(50, 50, 50, 0.8);
+    box-shadow: 0px 5px 5px 1px #000000b0;
+    cursor: pointer;
+    transition-duration: 300ms;
+}
+
+.msg:hover {
+    background-color: rgba(40, 40, 40, 0.9);
+}
+

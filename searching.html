@@ -100,8 +100,10 @@
                 }
             }
         </style>
+        <link rel="stylesheet" href="msg.css">
     </head>
     <body>
+        <div id="msg_container"></div>
         <div id="wrapper">
         <div id="control">
             <select id="algo_select">
@@ -132,6 +134,10 @@
                 <label for="speed" style="width: 100%;">Speed <output id="speed_output"></output></label>
                 <input id="speed" type="range" value="90" min="70" max="100" oninput="set_speed()">
             </div>
+            <div class="flex" style="font-weight: bolder;">
+                <label style="width: 100%;border: 1px solid black;padding: 5px;">STATUS: </label>
+                <output style="width: 100%;text-align: right;border: 1px solid black;padding: 5px;" id="status">NONE</output>
+            </div>
             <div class="flex">
                 <button class="item" id="update" onclick="update_map()">UPDATE/RESET</button>
                 <button class="item" id="clear" onclick="clear_map()">CLEAR</button>
@@ -144,6 +150,7 @@
         </div>
         </div>
         <canvas id="canvas"></canvas>
+        <script src="msg.js"></script>
         <script src="map.js"></script>
         <script src="controller.js"></script>
         <script src="searching.js"></script>

@@ -5,20 +5,26 @@ class Search {
     }
     start() {
         if (this.algo && this.algo.interval != null) {
-            console.log("Already running")
+            show_msg("Search already running")
         }
         else if (this.map.start && this.map.goal) {
             this.algo = new algo[algo_select.value](this.map)
             this.algo.start_search()
+            update_status("RUNNING ...")
         }
         else {
-            console.log("Empty start or goal")
+            show_msg("START or GOAL node not selected")
         }
     }
     stop() {
         if (this.algo && this.algo.interval) {
             clearInterval(this.algo.interval)
             this.algo.interval = null
+            show_msg("Search Stopped")
+            update_status("STOPPED ...")
+        }
+        else {
+            show_msg("Nothing to stop")
         }
     }
 }
@@ -31,22 +37,24 @@ class DFS {
         this.interval = null
         this.stack = []
         this.parent = {}
-        this.search = this.search.bind(this);
+        this.search = this.search.bind(this)
+        this.time = null
     }
 
     start_search() {
         this.stack.push(this.map.start)
-        debugger
         this.parent[this.map.start.value] = null // Set parent of start node as null
         this.interval = setInterval(this.search, get_speed())
+        this.time = new Date()
     }
 
     search() {
         // If stack is empty then clear interval
-        debugger
         if (this.stack.length == 0) {
             clearInterval(this.interval)
             this.interval = null
+            show_msg("Path not found")
+            update_status("Path Not Found")
             return
         }
         else {
@@ -64,8 +72,11 @@ class DFS {
                     this.parent[n_node.value] = node.value
                     clearInterval(this.interval)
                     this.interval = null
-                    debugger
                     this.display_path(this.parent, this.stack)
+                    let delta_time = (new Date() - this.time) / 1000
+                    show_msg("Path Found!")
+                    show_msg(`TOOK: ${delta_time} sec`)
+                    update_status(`TIME: ${delta_time} sec`)
                     return
                 }
 
@@ -113,13 +124,15 @@ class BFS {
         this.interval = null
         this.queue = []
         this.parent = {}
-        this.search = this.search.bind(this);
+        this.search = this.search.bind(this)
+        this.time = null
     }
 
     start_search() {
         this.queue.push(this.map.start)
         this.parent[this.map.start.value] = null // Set parent of start node as null
         this.interval = setInterval(this.search, get_speed())
+        this.time = new Date()
     }
 
     search() {
@@ -127,6 +140,8 @@ class BFS {
         if (this.queue.length == 0) {
             clearInterval(this.interval)
             this.interval = null
+            show_msg("Path not found")
+            update_status("Path Not Found")
             return
         }
         else {
@@ -145,6 +160,10 @@ class BFS {
                     clearInterval(this.interval)
                     this.interval = null
                     this.display_path(this.parent, this.queue)
+                    let delta_time = (new Date() - this.time) / 1000
+                    show_msg("Path Found!")
+                    show_msg(`TOOK: ${delta_time} sec`)
+                    update_status(`TIME: ${delta_time} sec`)
                     return
                 }
 
