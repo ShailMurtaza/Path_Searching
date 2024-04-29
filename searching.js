@@ -261,7 +261,7 @@ class Bi_directional {
 
     search() {
         // If queue is empty then clear interval
-        if (this.queue1.length == 0 && this.queue2.length == 0) {
+        if (this.queue1.length == 0 || this.queue2.length == 0) {
             clearInterval(this.interval)
             this.interval = null
             show_msg("Path not found")
@@ -269,6 +269,7 @@ class Bi_directional {
             return
         }
         else {
+            debugger
             this.BFS(this.queue1, this.parent1)
             this.BFS(this.queue2, this.parent2)
             let intersection = this.check_intersection()
