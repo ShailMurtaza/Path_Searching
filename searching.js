@@ -117,6 +117,7 @@ class DFS {
             let node = this.map.nodes[row][col] // Get node using index values
             node.color = COLORS["PATH"] // Set color of path
         }
+        set_steps(path.length)
         this.map.draw_nodes()
     }
 }
@@ -205,6 +206,7 @@ class BFS {
             let node = this.map.nodes[row][col] // Get node using index values
             node.color = COLORS["PATH"] // Set color of path
         }
+        set_steps(path.length)
         this.map.draw_nodes()
     }
 }
@@ -300,12 +302,13 @@ class Bi_directional {
             let node = this.queue2.pop()
             node.color = COLORS["VISITED"]
         }
-        for (let i=1;i<path.length-1;i++) {
+        for (let i=0;i<path.length-1;i++) {
             let row = Math.floor((path[i]) / this.map.cols) // Get row index using value of node
             let col = Math.floor((path[i]) % this.map.cols) // Get col index using value of node
             let node = this.map.nodes[row][col] // Get node using index values
             node.color = COLORS["PATH"] // Set color of path
         }
+        set_steps(path.length)
         this.map.draw_nodes()
     }
 
@@ -316,6 +319,7 @@ class Bi_directional {
             path.push(n)
             n = this.parent1[n] // Get parent of n
         }
+        path.pop() // Pop start node. No need for it in path
         path.reverse()
 
         path.pop() // Remove intersection node
@@ -409,6 +413,7 @@ class BestFS {
             let node = this.map.nodes[row][col] // Get node using index values
             node.color = COLORS["PATH"] // Set color of path
         }
+        set_steps(path.length)
         this.map.draw_nodes()
     }
 }
