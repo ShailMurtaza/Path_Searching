@@ -110,6 +110,7 @@
                 <option value=0>Depth First Search</option>
                 <option value=1>Breadth First Search</option>
                 <option value=2>Bi-Directional Search (BreadthFirstSearch)</option>
+                <option value=3>Best First Search (Greedy Search)</option>
             </select>
             <div>
                 <input id="action-start" type="radio" name="action" value="START" checked>
@@ -129,7 +130,7 @@
             </div>
             <div class="flex">
                 <label for="length" style="width: 100%;">Enter length of one tile/node:</label>
-                <input id="length" class="item" type="number" value=200>
+                <input id="length" class="item" type="number" value=30>
             </div>
             <div class="flex">
                 <label for="speed" style="width: 100%;">Speed <output id="speed_output"></output></label>
@@ -154,6 +155,7 @@
         <script src="msg.js"></script>
         <script src="map.js"></script>
         <script src="controller.js"></script>
+        <script src="queue.js"></script>
         <script src="searching.js"></script>
     </body>
 </html>

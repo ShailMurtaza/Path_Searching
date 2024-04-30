@@ -7,7 +7,7 @@ class Queue {
     enqueue(node) {
         var flag = false
         for(let i=0;i<this.queue.length;i++) {
-            if (this.queue[i].priority < node.priority) {
+            if (this.queue[i].priority <= node.priority) {
                 this.queue.splice(i, 0, node)
                 flag = true
                 break

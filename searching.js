@@ -58,7 +58,7 @@ class DFS {
         if (this.stack.length == 0) {
             clearInterval(this.interval)
             this.interval = null
-            show_msg("Path not found")
+            show_msg("Path Not Found")
             update_status("Path Not Found")
             return
         }
@@ -74,11 +74,11 @@ class DFS {
                 let n_node = neighbors[i]
                 // If neighbor is goal then clearInterval and break loop
                 if (n_node.color == COLORS["GOAL"]) {
+                    let delta_time = (new Date() - this.time) / 1000
                     this.parent[n_node.value] = node.value
                     clearInterval(this.interval)
                     this.interval = null
                     this.display_path(this.parent, this.stack)
-                    let delta_time = (new Date() - this.time) / 1000
                     show_msg("Path Found!")
                     show_msg(`TOOK: ${delta_time} sec`)
                     update_status(`TIME: ${delta_time} sec`)
@@ -145,7 +145,7 @@ class BFS {
         if (this.queue.length == 0) {
             clearInterval(this.interval)
             this.interval = null
-            show_msg("Path not found")
+            show_msg("Path Not Found")
             update_status("Path Not Found")
             return
         }
@@ -161,11 +161,11 @@ class BFS {
                 let n_node = neighbors[i]
                 // If neighbor is goal then clearInterval and break loop
                 if (n_node.color == COLORS["GOAL"]) {
+                    let delta_time = (new Date() - this.time) / 1000
                     this.parent[n_node.value] = node.value
                     clearInterval(this.interval)
                     this.interval = null
                     this.display_path(this.parent, this.queue)
-                    let delta_time = (new Date() - this.time) / 1000
                     show_msg("Path Found!")
                     show_msg(`TOOK: ${delta_time} sec`)
                     update_status(`TIME: ${delta_time} sec`)
@@ -264,23 +264,21 @@ class Bi_directional {
         if (this.queue1.length == 0 || this.queue2.length == 0) {
             clearInterval(this.interval)
             this.interval = null
-            show_msg("Path not found")
+            show_msg("Path Not Found")
             update_status("Path Not Found")
             return
         }
         else {
-            debugger
             this.BFS(this.queue1, this.parent1)
             this.BFS(this.queue2, this.parent2)
             let intersection = this.check_intersection()
 
             // If nodes intersect then clearInterval and break loop
             if (intersection != -1) {
-                console.log("Path Found")
+                let delta_time = (new Date() - this.time) / 1000
                 clearInterval(this.interval)
                 this.interval = null
                 this.display_path(intersection)
-                let delta_time = (new Date() - this.time) / 1000
                 show_msg("Path Found!")
                 show_msg(`TOOK: ${delta_time} sec`)
                 update_status(`TIME: ${delta_time} sec`)
@@ -330,10 +328,96 @@ class Bi_directional {
     }
 }
 
+class BestFS {
+    constructor(map) {
+        this.map = map
+        this.interval = null
+        this.queue = new Queue()
+        this.parent = {}
+        this.search = this.search.bind(this)
+        this.time = null
+    }
+
+    start_search() {
+        let start_node = this.map.start
+        let distance = map.distance(start_node, this.map.goal)
+        this.queue.enqueue({node: start_node, priority: distance})
+        this.parent[this.map.start.value] = null // set parent of start node as null
+        this.interval = setInterval(this.search, get_speed())
+        this.time = new Date()
+    }
+
+    search() {
+        // if queue is empty then clear interval
+        if (this.queue.queue.length == 0) {
+            clearInterval(this.interval)
+            this.interval = null
+            show_msg("Path Not Found")
+            update_status("Path Not Found")
+            return
+        }
+        else {
+            let node = this.queue.dequeue().node // Pop first element from queue
+            // Do not change color if node is start node
+            if (node.color != COLORS["START"])
+                node.color = COLORS["VISITED"]
+
+            // Get neighbors of node
+            let neighbors = this.map.get_neighbors(node.i, node.j)
+            for (let i=0;i<neighbors.length;i++) {
+                let n_node = neighbors[i]
+                if (n_node.color == COLORS["GOAL"]) {
+                    let delta_time = (new Date() - this.time) / 1000
+                    this.parent[n_node.value] = node.value
+                    clearInterval(this.interval)
+                    this.interval = null
+                    this.display_path()
+                    show_msg("Path Found!")
+                    show_msg(`TOOK: ${delta_time} sec`)
+                    update_status(`TIME: ${delta_time} sec`)
+                    return
+                }
+                if (n_node.color == COLORS["FILL"]) {
+                    this.parent[n_node.value] = node.value
+                    let distance = this.map.distance(n_node, this.map.goal)
+                    this.queue.enqueue({node: n_node, priority: distance})
+                    n_node.color = COLORS["SELECTED"]
+                }
+            }
+            this.map.draw_nodes()
+        }
+    }
+
+    display_path() {
+        var path = []
+        var n = this.parent[this.map.goal.value]
+
+        // Create path array
+        while (n != null) { // n can also be 0. check for null
+            path.push(n)
+            n = this.parent[n]
+        }
+
+        // Change color of all selected nodes to visited for clear picture of this.map
+        while(this.queue.queue.length) {
+            let node = this.queue.dequeue().node
+            node.color = COLORS["VISITED"]
+        }
+        for (let i=0;i<path.length-1;i++) {
+            let row = Math.floor((path[i]) / this.map.cols) // Get row index using value of node
+            let col = Math.floor((path[i]) % this.map.cols) // Get col index using value of node
+            let node = this.map.nodes[row][col] // Get node using index values
+            node.color = COLORS["PATH"] // Set color of path
+        }
+        this.map.draw_nodes()
+    }
+}
+
 const algo = {
     0: DFS,
     1: BFS,
-    2: Bi_directional
+    2: Bi_directional,
+    3: BestFS,
 }
 
 const search = new Search(map)

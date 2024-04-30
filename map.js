@@ -100,5 +100,14 @@ class Map {
         if (col - 1 < this.cols && col - 1 > -1) neighbors.push(this.nodes[row][col-1])
         return neighbors
     }
+
+    // Manhatten distance b/w two nodes
+    distance(n1, n2) {
+        let x1 = n1.i
+        let y1 = n1.j
+        let x2 = n2.i
+        let y2 = n2.j
+        return Math.abs(x2-x1) + Math.abs(y2-y1)
+    }
 }
 
