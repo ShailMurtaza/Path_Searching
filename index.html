@@ -12,111 +12,9 @@
         <meta property="og:image:height" content="100">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="css/msg.css">
+        <link rel="stylesheet" href="css/main.css">
         <title>Searching</title>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-                font-size: small;
-            }
-
-            canvas {
-                margin: 4px 0px 0px 4px;
-                padding: 0;
-                border: 2px solid grey;
-                border-radius: 1%;
-            }
-            #wrapper {
-                display: flex;
-                justify-content:center;
-                max-width: 100%;
-                padding: 5px 0;
-                margin: 10px 0;
-            }
-            #control {
-                width: 65%;
-                padding: 10px;
-                border-radius: 5px;
-                text-align: left;
-                box-shadow: 0px 5px 20px 1px #000000b0;
-            }
-            #control .item {
-                border: 1px solid black;
-                padding: 5px;
-                margin: 5px 0;
-            }
-            #control button {
-                width: 100%;
-                /* border: none !important; */
-                color: white;
-                font-weight: bold;
-                cursor: pointer;
-                transition-duration: 300ms;
-            }
-
-            input[type="radio"]:checked+label {
-                border: 2px solid rgb(160, 104, 0);
-            }
-            #length {
-                width: 100%;
-                padding: 5px;
-                box-sizing: border-box;
-            }
-
-            .flex {
-                display: flex;
-                flex-direction: row;
-                margin-top: 3px;
-                align-items: center;
-            }
-            .flex > * {
-                width: 100%;
-            }
-            select {
-                width: 100%;
-                padding: 5px;
-                margin-bottom: 7px;
-            }
-            #update {
-                background-color: #C0213B;
-            }
-            #update:hover {
-                background-color: #9E1B31;
-            }
-            #clear {
-                background-color: #00AAC0;
-            }
-            #clear:hover {
-                background-color: #006E7C;
-            }
-            #invert {
-                background-color: #888;
-            }
-            #invert:hover {
-                background-color: #000000;
-            }
-            #start, #stop {
-                background-color: #A300EB;
-            }
-            #start:hover ,#stop:hover {
-                background-color: #57007C;
-            }
-            .outputs .field {
-                width: 100%;
-                font-weight: bold;
-                padding: 5px;
-                border: 1px solid black;
-            }
-            @media screen and (max-width: 650px) {
-                #wrapper {
-                    padding: 10px 20px;
-                }
-                #control {
-                    width: 100%;
-                }
-            }
-        </style>
-        <link rel="stylesheet" href="msg.css">
     </head>
     <body>
         <div id="msg_container"></div>
@@ -169,19 +67,17 @@
         </div>
         </div>
         <canvas id="canvas"></canvas>
-        <script src="msg.js"></script>
-        <script src="map.js"></script>
-        <script src="controller.js"></script>
-        <script src="queue.js"></script>
-        <script src="searching.js"></script>
-        <script>
-            const algo = {
-                0: DFS,
-                1: BFS,
-                2: Bi_directional,
-                3: BestFS,
-                4: A_star,
-            }
-        </script>
+        <script src="js/msg.js"></script>
+        <script src="js/map.js"></script>
+        <script src="js/controller.js"></script>
+        <script src="js/queue.js"></script>
+
+        <script src="js/algo/depth_first_search.js"></script>
+        <script src="js/algo/breadth_first_search.js"></script>
+        <script src="js/algo/bi_directional_search.js"></script>
+        <script src="js/algo/best_first_search.js"></script>
+        <script src="js/algo/a_star_search.js"></script>
+
+        <script src="js/searching.js"></script>
     </body>
 </html>
