@@ -80,10 +80,13 @@ function handle_mouse_move(event) {
     let node = select_node(event.clientX, event.clientY)
     // If node exist then change its color to current selected action
     if (node != null) {
-        let action = get_action()
         if (node.color == COLORS["GOAL"]) {
             map.goal = null
         }
+        else if (node.color == COLORS["START"]) {
+            map.start = null
+        }
+        let action = get_action()
         node.color = COLORS[action]
     }
     map.draw_nodes()
@@ -93,6 +96,14 @@ function handle_mouse_down(event) {
     let node = select_node(event.clientX, event.clientY) // Get node under cursor
     let action = get_action() // Get current action
     if (node != null) {
+        // If node is not going to be selected as start or goal and node is already goal node then remove it from map.goal
+        if (node.color == COLORS["GOAL"]) {
+            map.goal = null
+        }
+        // If node is not going to be selected as start or goal and node is already start node then remove it from map.start
+        else if (node.color == COLORS["START"]) {
+            map.start = null
+        }
         if (action == "START") {
              // If start node already exist then change its color to default node color
             if (map.start != null) {
@@ -109,23 +120,12 @@ function handle_mouse_down(event) {
             // Set map goal node
             map.goal = node
         }
-        // If node is not going to be selected as start or goal and node is already goal node then remove it from map.goal
-        else if (node.color == COLORS["GOAL"]) {
-            map.goal = null
-        }
-        // If node is not going to be selected as start or goal and node is already start node then remove it from map.start
-        else if (node.color == COLORS["START"]) {
-            map.start = null
-        }
         node.color = COLORS[action] // Change color of node under cursor
     }
 
 
-    if (action == "BLOCK") {
-        canvas.addEventListener('mousemove', handle_mouse_move);
-    }
     // Fill is used for default color. Which means unblock
-    else if (action == "FILL") {
+    if (action == "BLOCK" || action == "FILL") {
         canvas.addEventListener('mousemove', handle_mouse_move);
     }
     map.draw_nodes()
@@ -175,5 +175,3 @@ map.create_nodes()
 map.draw_nodes()
 set_speed()
 // animate()
-
-
