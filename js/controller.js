@@ -93,7 +93,11 @@ function handle_mouse_move(event) {
 }
 
 function handle_mouse_down(event) {
-    let node = select_node(event.clientX, event.clientY) // Get node under cursor
+    var node;
+    if (event.type == "touchmove")
+        node = select_node(event.touches[0].clientX, event.touches[0].clientY) // Get node under touch
+    else
+        node = select_node(event.clientX, event.clientY) // Get node under cursor
     let action = get_action() // Get current action
     if (node != null) {
         // If node is not going to be selected as start or goal and node is already goal node then remove it from map.goal
@@ -125,7 +129,9 @@ function handle_mouse_down(event) {
 
 
     // Fill is used for default color. Which means unblock
-    if (action == "BLOCK" || action == "FILL") {
+    // Add mousemove event listener only of event type isn't touchmove. Because every things for touch should be handled by this function.
+    // Add mousemove event listener only if action is for BLOCK or UNBLOCK/FILL/DEFAULT
+    if (event.type != "touchmove" && (action == "BLOCK" || action == "FILL")) {
         canvas.addEventListener('mousemove', handle_mouse_move);
     }
     map.draw_nodes()
@@ -166,6 +172,7 @@ function invert_map() {
 }
 
 canvas.addEventListener('mousedown', handle_mouse_down);
+canvas.addEventListener('touchmove', handle_mouse_down);
 canvas.addEventListener('mouseup', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
 canvas.addEventListener('mouseout', ()=>{canvas.removeEventListener('mousemove', handle_mouse_move)});
 
