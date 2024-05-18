@@ -92,10 +92,10 @@ class Map {
         let neighbors = Array()
         // Upper
         if (row - 1 < this.rows && row - 1 > -1) neighbors.push(this.nodes[row-1][col])
-        // Lower
-        if (row + 1 < this.rows && row + 1 > -1) neighbors.push(this.nodes[row+1][col])
         // Right
         if (col + 1 < this.cols && col + 1 > -1) neighbors.push(this.nodes[row][col+1])
+        // Lower
+        if (row + 1 < this.rows && row + 1 > -1) neighbors.push(this.nodes[row+1][col])
         // Left
         if (col - 1 < this.cols && col - 1 > -1) neighbors.push(this.nodes[row][col-1])
         return neighbors
@@ -108,6 +108,29 @@ class Map {
         let x2 = n2.i
         let y2 = n2.j
         return Math.abs(x2-x1) + Math.abs(y2-y1)
+    }
+
+    export() {
+        var output = ""
+        for(let i=0;i<map.nodes.length;i++) {
+            let e = map.nodes[i]
+            for(let x=0;x<e.length;x++) {
+                let f = e[x]
+                if (f.color == COLORS["BLOCK"]) output += `map.nodes[${i}][${x}].color = COLORS["BLOCK"]\n`
+            }
+        }
+        output += `map.start = map.nodes[${map.start.i}][${map.start.j}]\n`
+        output += `map.goal = map.nodes[${map.goal.i}][${map.goal.j}]\n`
+        output += "map.start.color = COLORS['START']\n"
+        output += "map.goal.color = COLORS['GOAL']\n"
+        output += "map.draw_nodes()\n"
+
+        const link = document.createElement("a");
+        const file = new Blob([output], { type: 'text/plain' });
+        link.href = URL.createObjectURL(file);
+        link.download = "map.txt";
+        link.click();
+        URL.revokeObjectURL(link.href);
     }
 }
 
