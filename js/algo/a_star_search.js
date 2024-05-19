@@ -71,7 +71,16 @@ class A_star {
                 else if(n_node_g_n < this.g_n[n_node.value]) {
                     this.parent[n_node.value] = node.value
                     this.g_n[n_node.value] = n_node_g_n
-                    // f(n)/Priority should be update in priority queue. But I'm not doing it because it is working just fine
+
+                    // Update the priority queue because priority has been changed
+                    // Remove neighbor node from queue
+                    for (let i=0;i<this.queue.queue.length;i++) {
+                        if (this.queue.queue[i].node.value == n_node.value) {
+                            this.queue.queue.splice(i, 1)
+                        }
+                    }
+                    // Now that node doesn't exist. Update it with new priority
+                    this.queue.enqueue({node: n_node, priority: priority})
                 }
             }
             this.map.draw_nodes()
