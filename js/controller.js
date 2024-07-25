@@ -6,7 +6,7 @@ const algo_select = document.getElementById("algo_select")
 const status = document.getElementById("status")
 const steps = document.getElementById("steps")
 canvas.height = window.innerHeight - 15;
-canvas.width = window.innerWidth - 17;
+canvas.width = document.body.clientWidth - 17;
 const ctx = canvas.getContext('2d');
 
 
