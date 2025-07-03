@@ -1,4 +1,4 @@
-<img src="logo.png" alt="Logo" width="80" height="80">
+<img src="logo.svg" alt="Logo" width="80" height="80">
 
 ## About The Project
 It is a web application which allows you to see visualization different path finding or graph traversal algorithms.<br>
